@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Fingertip Painter — Premium</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand">
+        <svg viewBox="0 0 24 24" class="logo" aria-hidden><path d="M12 2L2 7v7c0 5 4 8 10 8s10-3 10-8V7l-10-5z" fill="currentColor"/></svg>
+        <div>
+          <h1>Fingertip Painter</h1>
+          <p class="muted">Double-pinch to toggle drawing • Use Start/Stop to control camera</p>
+        </div>
+      </div>
+      <div class="version">Demo</div>
+    </header>
+
+    <section class="panel">
+      <div class="left">
+        <div class="viewer-card">
+          <div class="video-wrap">
+            <video id="video" autoplay playsinline muted></video>
+            <canvas id="drawCanvas" aria-label="Drawing overlay"></canvas>
+          </div>
+
+          <div class="controls-row">
+            <button id="toggleCameraBtn" class="btn primary">Start Camera</button>
+            <button id="undoBtn" class="btn">Undo</button>
+            <button id="clearBtn" class="btn danger">Clear</button>
+
+            <label class="control-inline">
+              <span>Brush</span>
+              <input id="brushSize" type="range" min="1" max="40" value="6" />
+            </label>
+
+            <label class="control-inline">
+              <span>Color</span>
+              <input id="brushColor" type="color" value="#00C888" />
+            </label>
+
+            <label class="control-inline small">
+              <input id="includeVideo" type="checkbox" />
+              <span>Include camera frame on export</span>
+            </label>
+
+            <button id="exportBtn" class="btn success">Export Image</button>
+          </div>
+
+          <div class="mode-row">
+            <div>Mode: <strong id="mode">Idle</strong></div>
+            <div class="muted">Tip: Do two quick pinches (thumb+index) to toggle drawing. Keep good lighting</div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="right">
+        <div class="preview-card">
+          <h3>Exported Images</h3>
+          <div id="output" class="output"></div>
+        </div>
+
+        <div class="info-card">
+          <h4>How it works</h4>
+          <ol>
+            <li>MediaPipe detects 21 hand landmarks.</li>
+            <li>Pinch = thumb tip (4) near index tip (8). Two quick pinches toggle drawing.</li>
+            <li>Finger position is smoothed and stored as strokes. Export composes strokes + optional camera snapshot.</li>
+          </ol>
+        </div>
+      </aside>
+    </section>
+
+    <footer class="footer muted">Run on secure origin (https://) or localhost. For best results, use Chrome/Edge and allow camera permission.</footer>
+  </main>
+
+  <!-- MediaPipe (must load BEFORE app.js) -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+
+  <script src="app.js"></script>
+</body>
+</html>
