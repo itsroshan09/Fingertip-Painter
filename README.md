@@ -1,4 +1,4 @@
-# Fingertip Painter — Premium
+# Fingertip Painter
 
 
 
